@@ -28,10 +28,16 @@ jobs:
           distribution: temurin
           java-version: '17'
 
+  
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
-      - with:
-          accept-android-sdk-licenses: true
+
+      - name: Accept Android SDK licenses
+        run: |
+          mkdir -p "$HOME/.android"
+          touch "$HOME/.android/repositories.cfg"
+          yes | sdkmanager --sdk_root="$ANDROID_HOME" --licenses
+          
           
 
       - name: Install Gradle
